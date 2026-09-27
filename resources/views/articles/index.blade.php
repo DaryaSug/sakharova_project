@@ -5,9 +5,12 @@
 @section('content')
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h1 style="color: #5e2aa8;">Список статей (из БД)</h1>
-        <a href="{{ route('articles.create') }}" style="background: #5e2aa8; color: #fff; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-weight: bold;">
-            + Добавить статью
-        </a>
+        {{-- Добавлена проверка прав на создание статьи --}}
+        @can('create', App\Models\Article::class)
+            <a href="{{ route('articles.create') }}" style="background: #5e2aa8; color: #fff; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                + Добавить статью
+            </a>
+        @endcan
     </div>
 
     @if(session('success'))
@@ -27,12 +30,16 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
                     <a href="{{ route('articles.show', $article->id) }}" style="color: #5e2aa8; font-weight: bold; text-decoration: none;">Читать</a>
                     <div style="display: flex; gap: 8px;">
-                        <a href="{{ route('articles.edit', $article->id) }}" style="color: #007bff; text-decoration: none;">Ред.</a>
-                        <form action="{{ route('articles.destroy', $article->id) }}" method="POST" onsubmit="return confirm('Удалить статью?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" style="background: none; border: none; color: #dc3545; cursor: pointer; padding: 0;">Уд.</button>
-                        </form>
+                        @can('update', $article)
+                            <a href="{{ route('articles.edit', $article->id) }}" style="color: #007bff; text-decoration: none;">Ред.</a>
+                        @endcan
+                        @can('delete', $article)
+                            <form action="{{ route('articles.destroy', $article->id) }}" method="POST" onsubmit="return confirm('Удалить статью?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="background: none; border: none; color: #dc3545; cursor: pointer; padding: 0;">Уд.</button>
+                            </form>
+                        @endcan
                     </div>
                 </div>
             </div>

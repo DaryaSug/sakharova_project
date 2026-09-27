@@ -9,6 +9,10 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        // 1. Запускаем сидер ролей и пользователей
+        $this->call(RoleAndUserSeeder::class);
+
+        // 2. Создаем тестовые статьи
         Article::factory(10)->create();
     }
 }

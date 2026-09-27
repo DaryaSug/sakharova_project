@@ -2,24 +2,25 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Pagination\Paginator; // <--- 1. Добавьте этот импорт
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        Paginator::useBootstrapFive(); // <--- 2. Добавьте эту строку
+        // Хук Шлюза: вызовется до всех остальных проверок политик
+        Gate::before(function (User $user, string $ability) {
+            if ($user->hasRole('moderator')) {
+                return true; 
+            }
+        });
     }
 }

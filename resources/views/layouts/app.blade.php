@@ -84,6 +84,11 @@
         <nav>
             <a href="{{ url('/') }}">Главная</a>
             <a href="{{ route('articles.index') }}">Новости</a>
+
+            {{-- Проверка права 'create' модели Article --}}
+            @can('create', App\Models\Article::class)
+                <a href="{{ route('articles.create') }}">Создать новость</a>
+            @endcan
             
             @auth
                 <span style="font-weight: bold; color: #5e2aa8;">Привет, {{ Auth::user()->name }}</span>

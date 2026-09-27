@@ -2,37 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\AuthController;
 
-// Главная страница вызывает метод index контроллера MainController
 Route::get('/', [MainController::class, 'index'])->name('home');
-
-// Страница галереи для просмотра полноразмерного фото
 Route::get('/gallery/{id?}', [MainController::class, 'gallery'])->name('gallery');
-
-// Страница "О нас"
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-// Страница "Контакты"
+Route::get('/about', function () { return view('about'); })->name('about');
 Route::get('/contacts', function () {
     $contactsData = [
-        [
-            'title' => 'Электронная почта',
-            'value' => 'saxarova-04@mail.ru',
-            'description' => 'Для официальных запросов и предложений'
-        ],
-        [
-            'title' => 'Телефон',
-            'value' => '8 (987) 825-87-33',
-            'description' => 'Пн-Пт с 9:00 до 18:00'
-        ],
-        [
-            'title' => 'Главный офис',
-            'value' => 'г. Москва, ул. Академика Королева, д. 12',
-            'description' => 'Прием посетителей по предварительной записи'
-        ]
+        ['title' => 'Электронная почта', 'value' => 'saxarova-04@mail.ru', 'description' => 'Для официальных запросов'],
+        ['title' => 'Телефон', 'value' => '8 (987) 825-87-33', 'description' => 'Пн-Пт с 9:00 до 18:00'],
     ];
-
     return view('contacts', ['contacts' => $contactsData]);
 })->name('contacts');
+
+Route::get('/signin', [AuthController::class, 'create'])->name('signin');
+Route::post('/signin', [AuthController::class, 'registration'])->name('signin.post');

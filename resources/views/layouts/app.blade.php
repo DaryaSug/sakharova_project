@@ -60,6 +60,20 @@
             margin-bottom: 15px;
             border-radius: 4px;
         }
+
+        .pagination, 
+        nav ul {
+            list-style: none !important;
+            padding-left: 0 !important;
+            display: flex !important;
+            gap: 8px !important;
+            align-items: center !important;
+        }
+
+        .pagination li, 
+        nav ul li {
+            display: inline-block !important;
+        }
     </style>
 </head>
 <body>
@@ -68,11 +82,22 @@
     <header>
         <div class="logo">Laravel Project</div>
         <nav>
-            <a href="{{ route('home') }}">Главная</a>
-            <a href="{{ route('about') }}">О нас</a>
-            <a href="{{ route('contacts') }}">Контакты</a>
-            <a href="{{ route('signin') }}">Регистрация</a>
-            <a href="{{ route('articles.index') }}" class="nav-link">Новости (БД)</a>
+            <a href="{{ url('/') }}">Главная</a>
+            <a href="{{ route('articles.index') }}">Новости</a>
+            
+            @auth
+                <span style="font-weight: bold; color: #5e2aa8;">Привет, {{ Auth::user()->name }}</span>
+                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit" style="background: none; border: none; color: #dc3545; cursor: pointer; font-weight: bold;">
+                        Выйти
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('login') }}">Войти</a>
+                <a href="{{ route('register') }}">Регистрация</a>
+            @endauth
+            
         </nav>
     </header>
 

@@ -22,11 +22,11 @@ class ArticleController extends Controller
 
     // STORE: Сохранение новой статьи с валидацией
     public function store(ArticleRequest $request)
-    {
-        Article::create($request BartValidated());
+{
+    Article::create($request->validated());
 
-        return redirect()->route('articles.index')->with('success', 'Статья успешно создана!');
-    }
+    return redirect()->route('articles.index')->with('success', 'Статья успешно создана!');
+}
 
     // READ: Просмотр конкретной статьи
     public function show(Article $article)

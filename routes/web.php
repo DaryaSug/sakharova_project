@@ -1,18 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
 
-// Главная страница
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+// Главная страница вызывает метод index контроллера MainController
+Route::get('/', [MainController::class, 'index'])->name('home');
+
+// Страница галереи для просмотра полноразмерного фото
+Route::get('/gallery/{id?}', [MainController::class, 'gallery'])->name('gallery');
 
 // Страница "О нас"
 Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-// Страница "Контакты" с передачей динамического массива данных
+// Страница "Контакты"
 Route::get('/contacts', function () {
     $contactsData = [
         [

@@ -20,3 +20,4 @@ Route::get('/signin', [AuthController::class, 'create'])->name('signin');
 Route::post('/signin', [AuthController::class, 'registration'])->name('signin.post');
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles.show');
+Route::resource('articles', ArticleController::class);

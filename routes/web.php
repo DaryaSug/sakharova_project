@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ArticleController;
 
 Route::get('/', [MainController::class, 'index'])->name('home');
 Route::get('/gallery/{id?}', [MainController::class, 'gallery'])->name('gallery');
@@ -17,3 +18,5 @@ Route::get('/contacts', function () {
 
 Route::get('/signin', [AuthController::class, 'create'])->name('signin');
 Route::post('/signin', [AuthController::class, 'registration'])->name('signin.post');
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles.show');

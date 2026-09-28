@@ -74,6 +74,12 @@
         nav ul li {
             display: inline-block !important;
         }
+
+        nav svg {
+            max-width: 20px !important;
+            max-height: 20px !important;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -113,7 +119,7 @@
 
     <!-- Footer: ФИО и группа -->
     <footer>
-        <p>Разработчик: <strong>Сахарова Дарья Алексеевна</strong> | Группа: <strong>243-321</strong></p>
+        <p>Разработчик: <strong>Сахарова Дарья Алексеевна</strong> | Группа: <strong>243-323</strong></p>
     </footer>
 
 </body>
